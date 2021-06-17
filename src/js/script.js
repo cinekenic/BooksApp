@@ -10,7 +10,13 @@ const select = {
   booksImage: {
     image: ".book__image",
   },
+  filters: {
+    filter: ".filters form",
+  },
 };
+
+const filters = [];
+const filtersForm = document.querySelector(select.filters.filter);
 
 const templates = {
   menuBooks: Handlebars.compile(
@@ -45,6 +51,25 @@ function initActions() {
       }
     });
   }
-}
+  filtersForm.addEventListener("change", function (e) {
+    console.log(e.currentTarget);
 
+    if (e.target.type == "checkbox" && e.target.tagName == "INPUT") {
+      console.log(e.target.value);
+
+      if (e.target.checked) {
+        favoriteBooks.push(e.target.value);
+      } else {
+        console.log(e.target);
+        console.log(e.target.value);
+        const index = favoriteBooks.indexOf(e.target.value);
+        favoriteBooks.splice(index, 1);
+      }
+    }
+
+    console.log(favoriteBooks);
+  });
+}
 initActions();
+
+console.log(filtersForm);
